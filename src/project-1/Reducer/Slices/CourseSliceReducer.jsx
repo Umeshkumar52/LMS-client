@@ -1,22 +1,20 @@
 import { createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 import axiosInstance from "../../Helpers/AxiosInstance";
-// import { error } from "autoprefixer/lib/utils";
 import {toast} from "react-toastify"
 import { error } from "autoprefixer/lib/utils";
 const initialState={
     courseList:[]
 }
-export const allCourses=createAsyncThunk('/course/ExploreCourses',async()=>{  
+export const allCourses=createAsyncThunk('/course/ExploreCourses',async(data)=>{  
     try {
-        const response=axiosInstance.get('/courses')
-        toast.promise(response,{
-            loading:"Loading....",
-            success:"get courses successfully",
-            error:"Failed to fetch courses"
-        }, {
-            position:toast.POSITION.TOP_CENTER,
-            
-        })
+        const response=axiosInstance.get('/courses',data)
+        // toast.promise(response,{
+        //     loading:"Loading....",
+        //     success:"get courses successfully"
+        // }, {
+        //     position:toast.POSITION.TOP_CENTER,
+        //     autoClose:1500
+        // })
         return (await response).data.message
     } catch (error) {
         toast.error(error.response.data.message, {
@@ -25,6 +23,46 @@ export const allCourses=createAsyncThunk('/course/ExploreCourses',async()=>{
         })
     }   
 }) 
+export const courseByName=createAsyncThunk('/courses',async(data)=>{
+    try {
+        const response=axiosInstance.get(`/courses/byName/${data}`)
+          toast.promise(response,{
+            loading:"Loading....",
+            success:"get courses successfully"
+        }, {
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:1500
+        })
+        return (await response).data.message
+    } catch (error) {
+        toast.error(error.response.data.message, {
+            position:toast.POSITION.TOP_CENTER,
+            
+        })
+    }
+})
+export const enrollCourse=createAsyncThunk('/checkout',async(data)=>{
+    try {
+        const response=axiosInstance.post(`/courses/enrollCourse/${data[0]}`,data[1])
+        return(await response).data
+    } catch (error) {
+        toast.error(error.response.data.message,{
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:1500
+        })
+    }
+ })
+ export const checkEnrollCourseForUser=createAsyncThunk('/course/ExploreCourses',async(data)=>{
+    try {
+       const response=axiosInstance.get(`/courses/checkEnrollCourseForUser/${data}`)
+       return(await response).data
+    } catch (error) {
+        toast.error(error.response.data.message,{
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:1500
+        })
+    }
+ })
 export const createCourse=createAsyncThunk('/course/createCourse',async(data)=>{
      try {
         const response= axiosInstance.post('/courses/',data)
@@ -36,7 +74,6 @@ export const createCourse=createAsyncThunk('/course/createCourse',async(data)=>{
         position:toast.POSITION.TOP_CENTER,
         autoClose:1500
     })
-    console.log("response",await response);
          return(await response).data
      } catch (error) {
         toast.error(error.response.data.message)
@@ -62,7 +99,6 @@ export const addLecture=createAsyncThunk('/course/createLecture',async(lecture)=
 }) 
 export const getLectures=createAsyncThunk('/lectures/',async(id)=>{
     try {
-        console.log("aixiosStance called");
         const response=axiosInstance.get(`courses/lectures/${id}`)
         toast.promise(response,{
             loading:"Loading...",
@@ -72,14 +108,13 @@ export const getLectures=createAsyncThunk('/lectures/',async(id)=>{
         toast.error(error.response.data.message)
     }
 }) 
-export const updateCourse=createAsyncThunk('/courses/',async(data)=>{
+export const updateCourse=createAsyncThunk('/course/update',async(_id,data)=>{
+   
    try {
-    console.log("data",data.id);
-    const response=axiosInstance.put(`courses/${data.id}`,data.updateData)
-  toast.promise(response,{
+    const response=axiosInstance.put(`/courses/${_id}`,data)
+    toast.promise(response,{
     loading:"Updating Course...",
-    success:"Course Update Successfully",
-    error:'Fsiled to update course'
+    success:"Course Update Successfully"
   })
   return (await response).data
 } catch (error) {
@@ -89,7 +124,7 @@ export const updateCourse=createAsyncThunk('/courses/',async(data)=>{
 export const deletCourse=createAsyncThunk('/course/deletLecture',async(id)=>{
    try {
     const response= axiosInstance.delete(`courses/${id}`)
-    toast.promise(response,{
+     toast.promise(response,{
         loading:"please wait...",
         success:'Course deleted successfully',
         error:"Failed to delet course"
@@ -99,6 +134,18 @@ export const deletCourse=createAsyncThunk('/course/deletLecture',async(id)=>{
     toast.error(error.response.data.message);
    }
 })   
+export const userEnrollCourses=createAsyncThunk("/myCourses",async(data)=>{
+   try {
+    const response=axiosInstance.post('/courses/userCourses',data)
+    toast.promise(response,{
+        loading:"Updating Course...",
+        success:"Get courses Successfully"
+      })
+      return (await response).data
+    } catch (error) {
+        toast.error(error.response.data.message);
+    }
+})
 const courseSlice=createSlice({
     name:"course",
     initialState,
@@ -111,11 +158,16 @@ const courseSlice=createSlice({
            } 
         })
         .addCase(getLectures.fulfilled,(state,action)=>{
-            console.log("addcase called");
             if(action.payload){
                 state.course.lectures=[...action.payload]
             }
         })
+    //     .addCase(userEnrollCourses.fulfilled,(state,action)=>{
+    //         console.log("action",action);
+    //         if(action.payload){
+    //             state.enrollCourses=[...action.payload.message]
+    //         }
+    //     } )
     }
 })
 export const {}=courseSlice.actions;

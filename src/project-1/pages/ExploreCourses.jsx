@@ -2,37 +2,46 @@ import React, { useState } from 'react'
 import  {useDispatch, useSelector}  from 'react-redux'
 import { useEffect } from 'react'
 import axiosInstance from '../Helpers/AxiosInstance'
-import { allCourses } from '../Reducer/Slices/CourseSliceReducer'
+import { allCourses, courseByName } from '../Reducer/Slices/CourseSliceReducer'
 import { error } from 'autoprefixer/lib/utils'
 import CourseCard from '../components/CourseCard'
 import {ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingSpiner from '../components/LoadingSpiner'
+import SearchBar from '../components/SearchBar'
+import FindCourseByName from './FindCourseByName'
 export default function ExploreCourses() {
+  const dispatch=useDispatch()
   const [isLoading,setIsLoading]=useState(false)
     const {courseList}=useSelector((state)=>state.course)
-    const dispatch=useDispatch()
-    async function exploreCourse(event){
-         setIsLoading(true)
-         await dispatch(allCourses())
-         setIsLoading(false)
-        }
-   useEffect(()=>{
- exploreCourse()
-   },[])
+    const [searchTerm,setSearchTerm]=useState('')
+    function searchdata(data){
+      setSearchTerm(data)
+    }
   return (
-    <div className='flex flex-col gap-6' >
-      <div className='flex justify-center items-center'>
-       <h1 className='text-3xl font-extrabold mt-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-indigo-600'>Explore Courses Created by professional mentors</h1>
+    <div className=' flex flex-col px-3 gap-2'>
+      <div className='w-full px-2 pt-8 '>
+         <SearchBar updateSearchTerm={searchdata}/> 
       </div>
-       <div className='grid grid-cols-3 gap-10'>
+      <div className='ml-6 mt-6'>
+      <h1 className='text-2xl font-bold text-slate-200'>Our Courses</h1>
+      <hr className='bg-red-600 w-[10rem] h-1'/>
+          </div>
+    {(searchTerm.length==0)?
+     <div className='flex flex-col gap-4'>
+      
+     <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 md:grid-cols-2'>
       {(!isLoading)?
       courseList.map((Element)=>{
        return <CourseCard key={Element._id} data={Element}/>
-       }):<LoadingSpiner/>
+       })
+       :<LoadingSpiner/>
       }
-       <ToastContainer/>
+       {/* <ToastContainer/> */}
        </div>
+       </div>
+       :<FindCourseByName key={searchTerm} data={searchTerm}/>
+}
     </div>
   )
 }

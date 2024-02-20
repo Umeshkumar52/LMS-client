@@ -8,7 +8,6 @@ export default function ResetPasswordUrlHnadle() {
   const navigate=useNavigate()
   const urlToken=new URLSearchParams(window.location.search)
   const urlResetToken=urlToken.get('resetToken')
-  console.log("urlToken",urlResetToken);
   const dispatch=useDispatch()
   const [inputData,sertInputData]=useState({
     newPassword:"",
@@ -17,8 +16,6 @@ export default function ResetPasswordUrlHnadle() {
   const resetPasswordValue=[urlResetToken,inputData]
   async function resetPasswordHandler(){
     const response=await dispatch(ResetPasswordUrl(resetPasswordValue))
-  
-    console.log(response);
     if(!response){
       toast.error(" SORRY! Unable to reset Password, please Try again")
     }

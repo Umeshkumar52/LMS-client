@@ -20,15 +20,12 @@ export default function SignUp(){
     password:'',
     avatar:''
   })
-  console.log("signUPDATA",signUpDAta);
   function signDetails(event){
      const {name,value}=event.target;
      setSignUpDAta({
      ...signUpDAta,
      [name]:value
-     
-     })
-   }
+     })}
 function getImg(event){
   event.preventDefault()
   const uploadImg=event.target.files[0]
@@ -37,7 +34,6 @@ function getImg(event){
       ...signUpDAta,
       avatar:uploadImg
     })
-  
     const fileReader=new FileReader()
     fileReader.readAsDataURL(uploadImg)
     fileReader.addEventListener("load",function(){
@@ -52,19 +48,18 @@ formData.append("FullName",signUpDAta.FullName);
 formData.append("Email",signUpDAta.Email);
 formData.append("password",signUpDAta.password);
 formData.append("avatar",signUpDAta.avatar);
-console.log("sign",signUpDAta);
 setIsLoading(true)
 const response=await dispatch(Register(formData))
 setIsLoading(false)
 if(!response.payload) return
 navigate('/')
-// (response.payload.user.role=='ADMIN')?navigate('/admindashboard'):navigate('/userdashboard')
 }
   return (   
-    <div className='flex flex-col justify-center items-center bg-[#ffffffe5] h-screen w-full'>
-      {(!isLoading)?<form onSubmit={onRegister} encType='multipart/form-data' className='flex flex-col items-center justify-center h-fit py-5 px-10 w-fit bg-[#dfdede] rounded-lg p-4  gap-3 '>
+    <div className='flex flex-col justify-center items-center bg-gradient-to-t from-[#531d65f6] via-black  to-[#377e5ded]  w-full'>
+      {(!isLoading)?
+      <form onSubmit={onRegister} encType='multipart/form-data' className='flex flex-col items-center justify-center h-fit py-5 px-10 w-fit bg-[#dfdede] rounded-lg p-4  gap-3 '>
          <h1 className='font-extrabold text-xl text-green-500'>Registration</h1>
-         {/* <div className='flex flex-col tems-center justify-center'> */}
+       
           <label htmlFor='image_uploads' className='cursor-pointer'>
             {(prevImg)?(
             <img src={prevImg} className='h-12 w-12 m-auto rounded-full'/>):(

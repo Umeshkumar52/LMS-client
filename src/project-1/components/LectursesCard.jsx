@@ -1,17 +1,18 @@
 import React from 'react'
-
-export default function LectursesCard({lecturesData}) {
-     const {lecture}=lecturesData
-     console.log("lec",lecturesData);
+export default function LectursesCard({serialNum,data,lecturesData}) {
+  function urlSendHandler(){
+    data(lecturesData.lecture.secure_url)
+  }
   return (
-    <div>
-     <div className='flex flex-col gap-3  w-[30rem] h-[26rem] bg-slate-400 rounded-xl '>
-       <video src={lecture.secure_url } controls className=' rounded-lg'/>
-      <div className='flex flex-col ml-5 gap-4 font-bold text-white text-xl'> 
-      <h2> <span className='text-xl text-black'>Tittle </span>:   {lecturesData.tittle}</h2>
-       <p> <span className='text-xl text-black'>Description </span>:   {lecturesData.description}</p>
-       </div>
-     </div>
+<div className=''>
+    <div onClick={urlSendHandler} className='w-full h-16 cursor-pointer text-black flex px-4 gap-2 border-t-2 border-slate-300 bg-purple-100'>
+        <h1 className='font-bold flex mt-1'>{serialNum+1+"."}</h1>
+        <div>
+        <h2 className='font-semibold text-lg'>{lecturesData.tittle}</h2>
+        <h4 className='text-small'>{lecturesData.description}</h4>
+      </div> 
     </div>
+</div>
+
   )
 }

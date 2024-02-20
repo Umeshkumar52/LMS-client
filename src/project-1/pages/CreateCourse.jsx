@@ -40,34 +40,33 @@ export default function CreateCourse() {
     formData.append('description',createCourseData.description)
     formData.append('thumnail',createCourseData.thumnail)
     setIsLoading(true)
-    console.log(createCourse);
    const response=await dispatch(createCourse(formData))
    setIsLoading(false)
-//  if(response){
-//   navigate('/CreateCourse/CourseGreeting',{state:response.payload.message})
-//  }
   }
   return (
-    <div className='flex items-center justify-center bg-slate-800 w-full h-screen'>
+    <div className='flex items-center justify-center py-4 lg:h-[100%] xl:h-screen bg-white'>
      {(!isLoading)?
-      <form onSubmit={courseHandler} encType='multipart/form-data' className='flex flex-col justify-center items-center  border-4 border-slate-800 bg-[#d6d6de] p-4 pt-20 rounded-lg w-fit px-10'>
-         <h1 className='text-3xl font-extrabold text-yellow-400'>Create Course</h1>
-       <div className=' flex flex-col justify-center items-center gap-3 '>
-        <label htmlFor='tittle ' className='text-white font-bold '> Tittle<br/>
-         <input type='text' name='tittle' autoCorrect='' autoComplete='' value={createCourse.tittle} placeholder='Tittle of the course'  onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm text-slate-950 w-full'/>
+      <form onSubmit={courseHandler} encType='multipart/form-data' className='flex p-2  flex-col justify-center items-center  border-2 border-[#f3eded] bg-[#fcfcfc] rounded-lg w-[16rem] lg:w-fit'>
+         <h1 className='text-2xl font-bold text-yellow-400'>Create Course</h1>
+         
+       <div className=' flex flex-col justify-center items-center gap-0 '>
+       <ul className='text-black font-serif flex flex-col gap-2'>
+        <label htmlFor='tittle '> Tittle<br/>
+         <input type='text' name='tittle' autoCorrect='' autoComplete='' value={createCourse.tittle} placeholder='Tittle of the course'  onChange={inputHandaller} className='bg-white border-2 px-2 py-1 w-full'/>
          </label>
-         <label htmlFor='mentor' className='text-white font-bold'>Create By<br/>
-         <input type='text' name='createBy'  value={createCourse.createBy} placeholder='Enter the mentor name' onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm text-slate-950  w-full'/>
+         <label htmlFor='mentor' >Create By<br/>
+         <input type='text' name='createBy'  value={createCourse.createBy} placeholder='Enter the mentor name' onChange={inputHandaller} className='border-2 px-2 py-1 bg-white  w-full'/>
          </label>
-         <label htmlFor='thumnail ' className='text-white font-bold pl-14 '>Thumnail<br/>
-         <input type='file' name='thumnail'  value={createCourse.thumnail} onChange={getImg} placeholder='select file' className='w-full'/>
+         <label htmlFor='thumnail '>Thumnail<br/>
+         <input type='file' name='thumnail'  value={createCourse.thumnail} onChange={getImg} placeholder='select file' className='bg-white w-full'/>
          </label>
-        <label htmlFor='description' className='text-white font-bold '>Description<br/>
-          <textarea placeholder='Description...' name='description' value={createCourse.description} onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm text-slate-950  w-full h-[20vh]'/>
+        <label htmlFor='description' >Description<br/>
+          <textarea placeholder='Description...' name='description' value={createCourse.description} onChange={inputHandaller} className='border-2 px-2 py-1 bg-white  w-full h-[20vh]'/>
         </label>
-      
-          <button className='border-2  bg-blue-700 rounded-md p-2 text-white font-bold  w-[60vh]'>Create Course</button>
-       
+        <label htmlFor='description' >
+          <button className='border-2  bg-indigo-700 hover:bg-indigo-900 rounded-md p-2 text-white font-bold  w-full'>Create Course</button>
+        </label>
+          </ul>
           </div>
       </form>
       :<LoadingSpiner/>}

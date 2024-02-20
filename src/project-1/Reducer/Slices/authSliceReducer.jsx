@@ -14,9 +14,9 @@ export const Register=createAsyncThunk('/auth/register',async(data)=>{
         const response= axiosInstance.post("user/register",data)
         toast.promise(response,{
             loading:"Process...",
-            success:"Registration Successfully",
-            error:'failed to signup ,try again...'
-        },{
+            success:"Registration Successfully"
+        },
+        {
             position:toast.POSITION.TOP_CENTER,
             autoClose:1500
         })
@@ -28,13 +28,34 @@ export const Register=createAsyncThunk('/auth/register',async(data)=>{
         })
     }
 })
+
+export const query=createAsyncThunk('/user/query',async(data)=>{
+    try {
+        const response=axiosInstance.post('/user/query',data)
+        toast.promise(response,{
+            loading:"Process...",
+            success:"message sent",
+            error:'failed to signup ,try again...'
+        },
+        {
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:1500
+        })
+        return(await response).data
+    } catch (error) {
+        toast.error(error.response.data.message,{
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:1500
+        })
+    }
+})
+
 export const login=createAsyncThunk('/auth/login',async(data)=>{
   try {
     const response= axiosInstance.post('user/login',data);
          toast.promise(response,{
             loading:'please waite...',
-            success:"Login Successfully",
-            error:"Failed to login"
+            success:"Login Successfully"
          },
         {
             position:toast.POSITION.TOP_CENTER,
@@ -71,6 +92,10 @@ export const logout=createAsyncThunk('/auth/logout',async()=>{
     toast.promise(response,{
         loading:"Please Wait...",
         success:"Logout Successfully" ,
+    },
+    {
+        position:toast.POSITION.TOP_CENTER,
+        autoClose:2000
     })
     return (await response).data
    } catch (error) {
@@ -105,6 +130,7 @@ export const ResetPasswordUrl=createAsyncThunk('/auth/resetPasswordUrl',async(da
     toast.error(error.response.data.message)
 }
 })
+
 const authSlice=createSlice({
     name:'auth',
     initialState,

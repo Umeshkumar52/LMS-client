@@ -18,7 +18,6 @@ export default function ForgetPassword() {
       [name]:value
     })
   }
-  console.log("reset",resetDetail);
     async function resetPassword(){
         const response=await dispatch(forgetPassword(resetDetail))
         resetDetail.Email=""

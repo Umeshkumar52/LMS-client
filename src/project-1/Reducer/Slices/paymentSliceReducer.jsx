@@ -14,7 +14,6 @@ export const razorpayKey=createAsyncThunk('/payments/',async()=>{
         loading:"Loading...",
         message:"Get razorpay key Successfully"
     })
-    console.log( "resp",await response);
     return (await response).data
    } catch (error) {
     toast.error(error.response.data.message)
@@ -22,35 +21,35 @@ export const razorpayKey=createAsyncThunk('/payments/',async()=>{
 })
 export const Buysubscription=createAsyncThunk('/payments/subscription',async(id)=>{
     try {
-        console.log("id",id);
+      
         const response=axiosInstance.post(`/payments/${id}`,id)
         toast.promise(response,{
            loading:"Loading..." ,
            message:"Subscription successfully",
-           error:"Unable to Buy Subscription"
         },{
             position:toast.POSITION.TOP_CENTER,
             autoClose:2000
         }) 
+      
         return (await response).data
     } catch (error) {
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.message,{
+            position:toast.POSITION.TOP_CENTER,
+            autoClose:2000
+        })
     }
 })
 export const verifySubscription=createAsyncThunk('/payments/verifyPayments',async(data)=>{
    try {
-    console.log("verify called");
-    console.log("data",data);
-    const response=axiosInstance.post('/payments/',data)
-    console.log("await Response",await response);
+    const response=axiosInstance.post(`/payments/paymentVerify/${data[0]}`,data[1])
+    
     toast.promise({
         loading:"loading...",
         message:"Payment verify successfully"
     })
-   
-    return (await response)
+    return (await response).data
    } catch (error) {
-    toast.error(error)
+    toast.error(error.response.data.message)
    }
 })
 export const allpayments=createAsyncThunk('payments/allpayments',async()=>{
@@ -77,14 +76,12 @@ const paymentsSlice=createSlice({
            }
         })
         .addCase(razorpayKey.fulfilled,(state,action)=>{
-            console.log("action",action,state);
             if(action.payload){
              state.razorpayKey=action.payload
             }
          })
         .addCase(verifySubscription.fulfilled,(state,action)=>{
             if(action.payload){
-                console.log(action.payload);
              state.verifySubscription=action.payload
              state.isVerifySubscription=true
             }

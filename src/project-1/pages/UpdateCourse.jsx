@@ -7,58 +7,59 @@ import LoadingSpiner from '../components/LoadingSpiner';
 import 'react-toastify/dist/ReactToastify.css';
 export default function UpdateCourse() {
   const [isLoading,setIsLoading]=useState(false)
+  const [prevImg,setPrevImg]=useState('')
     const dispatch=useDispatch()
     const navigate=useNavigate()
     const {state}=useLocation()
+   const _id=state._id;
     const [update,setUpdate]=useState({
         tittle:state.tittle,
         createBy:state.createBy,
-        thumnail:'',
+        thumnail:state.thumnail.secure_url,
         description:state.description
     })
     function inputHandaller(event){
-     const {name,value}=event.target
+     const {name,value}=event.target;
      setUpdate({
         ...update,
         [name]:value
      })
     }
     function getImg(event){
-      event.preventDefault()
-      const UploadImg=event.target.files[0]
-      if(UploadImg){
+      event.preventDefault();
+      const uploadImg=event.target.files[0];
+      if(uploadImg){
         setUpdate({
           ...update,
-          thumnail:UploadImg
+          thumnail:uploadImg
+        })
+        const fileReader=new FileReader();
+        fileReader.readAsDataURL(uploadImg);
+        fileReader.addEventListener("load",function(){
+          setPrevImg(this.result)
         })
       }
     }
-    console.log("update",update.tittle,update.thumnail);
-    const formData=new FormData()
-    formData.append("tittle",update.tittle)
-    formData.append("createBy",update.createBy)
-    formData.append("description",update.description)
-    formData.append("thumnail",update.thumnail)
-    const data={
-      id:state._id,
-      updateData:formData
-    }
-   async function UpdateCourse(event){
-    event.preventDefault()
+       async function up(event){
+        event.preventDefault()
+        const formData=new FormData()
+        formData.append("tittle",update.tittle)
+        formData.append("createBy",update.createBy)
+        formData.append("description",update.description)
+        formData.append("thumnail",update.thumnail)
+        console.log("gfdgd",formData.get("thumnail"));
     setIsLoading(true)
-    console.log(data);
-   const response=await dispatch(updateCourse(data))
-   console.log(response);
+   const response=await dispatch(updateCourse(_id,formData))
    setIsLoading(false)
-   if(!response.payload)return
+   if(!response.payload){
      navigate('/ExploreCourses')
-   }
+}}
   return (
-    <div className='flex items-center justify-center bg-slate-800 w-full h-screen'>
+    <div className='flex items-center justify-center bg-[#2d2d31eb] py-2 w-full h-full lg:h-screen'>
     {(!isLoading)?
-    <form onSubmit={UpdateCourse} className='flex flex-col justify-center items-center rounded border-4 border-slate-700 bg-[#acb1b1f2] pt-10 p-2 h-fit w-[50%]'>
-       <h1 className='text-3xl font-extrabold text-yellow-400'>Update Course</h1>
-     <div className=' flex flex-col justify-center font-semibold text-black items-center gap-2 '>
+    <form  encType='multiparty/form-data' className='flex flex-col justify-center items-center font-serif rounded border-1 gap-4 text-white bg-[#2d2d31eb] w-[16rem] h-fit lg:w-[50%]'>
+       <h1 className='text-2xl font-bold text-slate-300'>Update Course</h1>
+     <div className=' flex flex-col justify-center items-center gap-2 '>
       <label htmlFor='tittle '> Tittle<br/>
        <input type='text' name='tittle'  value={update.tittle} placeholder='Tittle of the course'  onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm  w-[70vh]'/>
        </label>
@@ -66,12 +67,12 @@ export default function UpdateCourse() {
        <input type='text' name='createBy' value={update.createBy} placeholder='Enter the mentor name' onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm w-[70vh]'/>
        </label>
        <label htmlFor='thumnail ' >Thumnail<br/>
-       <input type='file' name='thumnail' onChange={getImg} placeholder='select file' className='w-[70vh]'/>
+       <input type='file' name='thumnail' value={update.thumnail.secure_url} onChange={getImg} placeholder='select file' className='w-[70vh]'/>
        </label>
       <label htmlFor='description' >Description<br/>
         <textarea placeholder='Description...'value={update.description} name='description' onChange={inputHandaller} className='border-2 px-2 py-1 border-slate-950 rounded-sm w-[70vh] h-[20vh]'/>
       </label>
-        <button className='border-2 bg-blue-700 rounded-md px-2 py-1 text-white font-bold  w-[70vh]'>Create Course</button>
+        <button onClick={up} className='border-2 bg-blue-700 rounded-md px-2 py-1 text-white font-bold  w-[70vh]'>update Course</button>
         </div>
     </form>
     :<LoadingSpiner/>
