@@ -70,20 +70,20 @@ export const login=createAsyncThunk('/auth/login',async(data)=>{
     })
   }
 })
-export const getProfile=createAsyncThunk('/auth/getProfile',async()=>{
+export const updateProfile=createAsyncThunk('/auth/profile',async(data)=>{
     try {
-        const response=axiosInstance.get(`/user/getProfile`)
+        const response=axiosInstance.put(`/user/updateProfile`,data)
         toast.promise(response,{
             loading:"Loading....",
-            success:"Get Profile successfully",
-            error:"Failed to fetch user details"
+            success:"Updated",
+            error:"Unable to Update"
         }, {
             position:toast.POSITION.TOP_CENTER,
             autoClose:1500, 
         })
-        return (await response).data;
+        return (await response);
     } catch (error) {
-       toast.error(error.response.data.message) 
+    //    toast.error(error.response.data.message) 
     }
 })
 export const logout=createAsyncThunk('/auth/logout',async()=>{
@@ -171,13 +171,6 @@ const authSlice=createSlice({
             state.isLoggedIn=false
             state.user={}
         })
-        .addCase(getProfile.fulfilled, (state, action) => {
-            console.log("actionPro",action.payload);
-            if(!action.payload) return;
-            // localStorage.setItem("userProfile", JSON.stringify(action.payload.user));
-            state.userProfile= action.payload.user;
-          
-        });
     }
 })
 export const {}=authSlice.actions

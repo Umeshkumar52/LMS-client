@@ -20,6 +20,7 @@ export default function SignUp(){
     password:'',
     avatar:''
   })
+  console.log("prev",prevImg);
   function signDetails(event){
      const {name,value}=event.target;
      setSignUpDAta({
@@ -55,9 +56,9 @@ if(!response.payload) return
 navigate('/')
 }
   return (   
-    <div className='flex flex-col justify-center items-center bg-gradient-to-t from-[#531d65f6] via-black  to-[#377e5ded]  w-full'>
+    <div className='flex flex-col justify-center items-center w-full'>
       {(!isLoading)?
-      <form onSubmit={onRegister} encType='multipart/form-data' className='flex flex-col items-center justify-center h-fit py-5 px-10 w-fit bg-[#dfdede] rounded-lg p-4  gap-3 '>
+      <form onSubmit={onRegister} encType='multipart/form-data' className='flex flex-col items-center justify-center h-fit py-5 px-10 w-fit rounded-lg p-4  gap-3 '>
          <h1 className='font-extrabold text-xl text-green-500'>Registration</h1>
        
           <label htmlFor='image_uploads' className='cursor-pointer'>

@@ -68,8 +68,9 @@ const saleData = {
 };
    
     async function delet(event){
-      event.preventDefault()
+         if(window.confirm("Are you want to delete course")){
         const response=await dispatch(deletCourse(courseId))
+         }
       }
   return (
     <div className='overflow-x-hidden w-full flex flex-col gap-12 px-4 justify-center items-center'>

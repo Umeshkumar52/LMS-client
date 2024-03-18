@@ -68,8 +68,7 @@ export const createCourse=createAsyncThunk('/course/createCourse',async(data)=>{
         const response= axiosInstance.post('/courses/',data)
         toast.promise(response,{
         loading:"please wait...",
-        success:"Course added successfully",
-        error:"failed to create course"
+        success:"Course added successfully"
     }, {
         position:toast.POSITION.TOP_CENTER,
         autoClose:1500
@@ -108,10 +107,10 @@ export const getLectures=createAsyncThunk('/lectures/',async(id)=>{
         toast.error(error.response.data.message)
     }
 }) 
-export const updateCourse=createAsyncThunk('/course/update',async(_id,data)=>{
-   
+export const updateCourse=createAsyncThunk('/course/update',async(data)=>{
    try {
-    const response=axiosInstance.put(`/courses/${_id}`,data)
+    
+    const response=axiosInstance.put(`/courses/${data._id}`,data.formData)
     toast.promise(response,{
     loading:"Updating Course...",
     success:"Course Update Successfully"

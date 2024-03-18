@@ -5,7 +5,7 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 export default function Footer() {
   
   return (
-   <div className='flex flex-col w-full  pl-2 pb-20 font-sans text-[#ccd3ccf0] gap-8 bg-black'>
+   <div className='flex flex-col w-full  pl-4 pb-20 font-sans text-[#ccd3ccf0] gap-8 bg-black'>
     <div className='flex flex-col gap-6  lg:justify-between'> 
      <div className='flex flex-col gap-2 pt-4 '>
       <img/>
@@ -24,9 +24,9 @@ export default function Footer() {
       <label className="label">
         <span className="label-text">Enter your email address</span>
       </label> 
-      <div className="join bg-slate-500 w-16">
-        <input type="text" placeholder="username@site.com" className="pt-2 pb-2 bg-slate-500 " /> 
-        <button className="bg-indigo-800 p-3 ">Subscribe</button>
+      <div className="flex">
+        <input type="text" placeholder="username@site.com" className=" bg-white text-black " /> 
+        <button className="bg-indigo-800 py-2 ">Subscribe</button>
       </div>
     </fieldset>
     

@@ -13,7 +13,7 @@ export default function LecturesData() {
     }
     let defaultUrl=lectureUrl
   return (
-    <div className='w-full flex flex-col lg:flex-row '>
+    <div className='w-full overflow-hidden flex flex-col lg:flex-row '>
       {(state.lectures.length!=0)?
       <div className='sticky top-0 pb-4 bg-white w-full gap-1 flex flex-col items-center justify-center'>
       <div className='w-full text-sm flex px-6 gap-6 justify-between items-center'>

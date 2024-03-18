@@ -19,7 +19,7 @@ export default function ExploreCourses() {
       setSearchTerm(data)
     }
   return (
-    <div className=' flex flex-col px-3 gap-2'>
+    <div className=' flex flex-col gap-2'>
       <div className='w-full px-2 pt-8 '>
          <SearchBar updateSearchTerm={searchdata}/> 
       </div>
@@ -30,7 +30,7 @@ export default function ExploreCourses() {
     {(searchTerm.length==0)?
      <div className='flex flex-col gap-4'>
       
-     <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 md:grid-cols-2'>
+     <div className='grid grid-cols-1 lg:grid-cols-3 gap-1 md:grid-cols-2'>
       {(!isLoading)?
       courseList.map((Element)=>{
        return <CourseCard key={Element._id} data={Element}/>

@@ -23,7 +23,7 @@ exploreCourse()
  },[])
   return (
     <>
-    <div className="carousel overflow-y-hidden flex w-[300px] lg:w-[650px] xl:w-[980px] 2xl:w-[1300px] gap-5 rounded">    
+    <div className="carousel overflow-y-hidden flex w-[300px] px-6 lg:w-[650px] xl:w-[980px] 2xl:w-[1300px] gap-10 rounded">    
     {(!isLoading)?
       courseList.map((Element)=>{
        return  <SlideCourse key={Element._id} data={Element}/>

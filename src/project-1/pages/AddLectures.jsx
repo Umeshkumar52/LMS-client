@@ -44,8 +44,8 @@ export default function AddLectures() {
       event.preventDefault();
       setIsLoading(true)
      const response =await dispatch(addLecture(lecture))
+     setIsLoading(false)
      if(response.payload){
-      setIsLoading(false)
       navigate('/ExploreCourses')
      }}
   return (

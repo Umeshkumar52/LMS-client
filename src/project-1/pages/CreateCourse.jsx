@@ -44,13 +44,13 @@ export default function CreateCourse() {
    setIsLoading(false)
   }
   return (
-    <div className='flex items-center justify-center py-4 lg:h-[100%] xl:h-screen bg-white'>
+    <div className='flex items-center justify-center py-4 lg:h-[100%] xl:h-screen'>
      {(!isLoading)?
-      <form onSubmit={courseHandler} encType='multipart/form-data' className='flex p-2  flex-col justify-center items-center  border-2 border-[#f3eded] bg-[#fcfcfc] rounded-lg w-[16rem] lg:w-fit'>
+      <form onSubmit={courseHandler} encType='multipart/form-data' className='flex p-2 text-white flex-col justify-center items-center  w-[16rem] lg:w-fit'>
          <h1 className='text-2xl font-bold text-yellow-400'>Create Course</h1>
          
        <div className=' flex flex-col justify-center items-center gap-0 '>
-       <ul className='text-black font-serif flex flex-col gap-2'>
+       <ul className=' font-serif flex flex-col gap-2'>
         <label htmlFor='tittle '> Tittle<br/>
          <input type='text' name='tittle' autoCorrect='' autoComplete='' value={createCourse.tittle} placeholder='Tittle of the course'  onChange={inputHandaller} className='bg-white border-2 px-2 py-1 w-full'/>
          </label>

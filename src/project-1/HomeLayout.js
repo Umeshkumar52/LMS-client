@@ -17,7 +17,7 @@ export default function HomeLayout({ children }) {
     return state.auth
   })
   function openButton(){
-    document.querySelector(".slideBar").style.width="60vh";
+    document.querySelector(".slideBar").style.width="47vh";
   }
   function closeButton(){
    document.querySelector(".slideBar").style.width="0px";
@@ -60,11 +60,10 @@ export default function HomeLayout({ children }) {
     <button onClick={closeButton} onMouseDown={profileOCloser} className='pl-36 text-white mt-4'>✖ </button>
     </div>
      <ul  className="menu p-4 gap-1 text-base-content text-lg font-semibold">
-   <div className='bg-slate-900 w-full'>
+   <div className='bg-slate-900 w-[240px]'>
    {
    (user.FullName==null || undefined)?"":
-  //  
-   <div  className='flex w-full h-20 gap-2 text-xl font-bold justify-center items-center'>
+   <div  className='flex h-20 text-xl font-bold justify-center items-center'>
           <img src='' className='w-[40%]'/>
           <div className='flex flex-col w-full'>
            <h2 className='text-xl font-serif text-red-600'>Hey </h2>
@@ -76,7 +75,6 @@ export default function HomeLayout({ children }) {
        </div>
            }
            {(userPofile)?
-         
            <ul className=''>
             <hr className=' h-1 bg-slate-800'/>
              <li className='w-full  rounded-lg' ><Link to='/myCourses'>My Course</Link></li>

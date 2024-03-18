@@ -28,8 +28,8 @@ export default function Login() {
      navigate('/')
    }   
   return (
-    <div className='bg-gradient-to-t from-[#531d65f6] via-black  to-[#377e5ded] h-screen w-full flex justify-center items-center'>
-    <form onSubmit={onLogin} className='h-fit w-fit px-10 py-5 bg-[#d9d9dd] flex flex-col items-center justify-center rounded-lg p-6 gap-5'>
+    <div className='h-screen w-full flex justify-center items-center'>
+    <form onSubmit={onLogin} className='h-fit w-fit px-10 py-5 flex flex-col items-center justify-center rounded-lg p-6 gap-5'>
        <h1 className='font-extrabold text-3xl text-[#212ed9]'>Login</h1>
           <div className=' w-full flex flex-col items-center justify-center gap-4'>
              <input type='Email' onChange={loginDetail} name='Email' value={loginData.Email} placeholder='E-mail'  className='bg-white w-full border-2 border-blue-100 p-3 rounded'/>

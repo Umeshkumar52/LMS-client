@@ -18,10 +18,10 @@ function sliceLessData(){
 }
   return (
     <div>
-        <div  onClick={()=>navigate('/ExploreCourses/description',{state:{...data}})} className='bg-[#1a1d1af5] gap-2  w-[310px]  border-2 border-[#1a1d1af5] rounded-lg font-semibold flex flex-col pb-4 ' >
+        <div  onClick={()=>navigate('/ExploreCourses/description',{state:{...data}})} className='bg-[#1a1d1af5] gap-2  w-[260px]  border-2 border-[#1a1d1af5] rounded-lg font-semibold flex flex-col pb-4 ' >
       <div className=' flex flex-col gap-1'>
        <div>
-        <img src={secure_url} className='rounded-lg h-34 w-[29rem]' />
+        <img src={secure_url} className='rounded-lg h-34 w-[28rem]' />
        </div>
        <div className='flex flex-col gap-0 pl-4 pr-4'>
        <h1 className='text-lg font-bold text-white'>{data.tittle}</h1>
